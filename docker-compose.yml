@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  masten.db:
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: david
+      POSTGRES_PASSWORD: david
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: ${API}/Dockerfile
+      args:
+        api: ${API}
+    environment:
+      db: ${MARTEN_DB}
