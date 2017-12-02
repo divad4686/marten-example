@@ -16,4 +16,4 @@ RUN dotnet publish /${api} --output /publish --configuration Release
 FROM microsoft/aspnetcore:2.0.3
 WORKDIR /publish
 COPY --from=builder /publish .
-ENTRYPOINT ["dotnet", "api.dll"]
+ENTRYPOINT ["dotnet", "quest.dll"]

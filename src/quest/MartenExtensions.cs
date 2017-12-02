@@ -9,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 
-namespace API
+namespace quest
 {
     public static class MartenExtensions
     {
-        public static IServiceCollection AddMArten(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddMarten(this IServiceCollection services, IConfiguration configuration)
         {
             Retry(() => services.AddSingleton<IDocumentStore>(
                     DocumentStore.For(_ =>
@@ -21,6 +21,7 @@ namespace API
                         _.Connection(configuration["MARTEN_DB"]);
                         _.Events.DatabaseSchemaName = "marten_store";
                         _.AutoCreateSchemaObjects = AutoCreate.All;
+
                     })));
 
             return services;

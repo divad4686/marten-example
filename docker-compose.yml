@@ -16,4 +16,4 @@ services:
       args:
         api: ${API}
     environment:
-      db: ${MARTEN_DB}
+      MARTEN_DB: ${MARTEN_DB}
