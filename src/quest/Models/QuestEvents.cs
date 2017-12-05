@@ -11,14 +11,11 @@ namespace quest
     // SAMPLE: sample-events
     public class ArrivedAtLocation
     {
-
-        public int Day { get; set; }
-
         public string Location { get; set; }
 
         public override string ToString()
         {
-            return $"Arrived at {Location} on Day {Day}";
+            return $"Arrived at {Location}";
         }
     }
 
@@ -29,9 +26,8 @@ namespace quest
         {
         }
 
-        public MembersJoined(int day, string location, params string[] members)
+        public MembersJoined(string location, params string[] members)
         {
-            Day = day;
             Location = location;
             Members = members;
         }
@@ -46,7 +42,7 @@ namespace quest
 
         public override string ToString()
         {
-            return $"Members {Members.Join(", ")} joined at {Location} on Day {Day}";
+            return $"Members {Members.Join(", ")} joined at {Location}";
         }
     }
 

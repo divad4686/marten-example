@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  masten.db:
+  marten.db:
     image: postgres
     ports:
       - "5433:5432"
@@ -17,3 +17,5 @@ services:
         api: ${API}
     environment:
       MARTEN_DB: ${MARTEN_DB}
+    ports:
+      - 82:80

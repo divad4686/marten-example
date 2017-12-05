@@ -3,32 +3,27 @@ using System.Collections.Generic;
 
 namespace quest
 {
-    public class Monster
+    public class PigSlayed
     {
-        public Guid Id { get; set; }
+        public readonly Guid QuestId;
+        public readonly string Name;
+
+        public PigSlayed(Guid questId, string name)
+        {
+            QuestId = questId;
+            Name = name;
+        }
     }
 
-    public class MonsterSlayed
+    public class BossSlayed
     {
-        public Guid QuestId { get; set; }
-        public string Name { get; set; }
-    }
+        public readonly Guid QuestId;
+        public readonly string Name;
 
-    public class MonsterDestroyed
-    {
-        public Guid QuestId { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class MonsterQuestsAdded
-    {
-        public List<Guid> QuestIds { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class MonsterQuestsRemoved
-    {
-        public List<Guid> QuestIds { get; set; }
-        public string Name { get; set; }
+        public BossSlayed(Guid questId, string name)
+        {
+            QuestId = questId;
+            Name = name;
+        }
     }
 }
