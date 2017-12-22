@@ -6,12 +6,10 @@ namespace quest
     public class PigSlayed
     {
         public readonly Guid QuestId;
-        public readonly string Name;
 
-        public PigSlayed(Guid questId, string name)
+        public PigSlayed(Guid questId)
         {
             QuestId = questId;
-            Name = name;
         }
     }
 

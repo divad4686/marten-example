@@ -45,9 +45,9 @@ namespace quest.Controllers
         }
 
         [HttpPost("killPig")]
-        public async Task<IActionResult> KillPig(Guid questId, string name)
+        public async Task<IActionResult> KillPig(Guid questId)
         {
-            var @event = new PigSlayed(questId, name);
+            var @event = new PigSlayed(questId);
             await SaveEvent(questId, @event);
             return Ok(@event.ToString());
         }
@@ -66,10 +66,33 @@ namespace quest.Controllers
             using (var session = _store.OpenSession())
             {
                 var quest = await session.Events.AggregateStreamAsync<QuestParty>(id);
-                var bosses = await session.Events.AggregateStreamAsync<MonstersSlayed>(id);
-                return Ok(new { Quest = quest, Bosses = bosses });
+                var monsters = await session.Events.AggregateStreamAsync<MonstersSlayed>(id);
+                return Ok(new { Quest = quest, Monsters = monsters });
             }
         }
 
+        [HttpGet("questInfoDynamic/{id}")]
+        public async Task<IActionResult> GetWithDynamic(Guid id)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var events = (await session.Events.FetchStreamAsync(id)).Select(@event => @event.Data).ToList();
+                var quest = QuestParty.Reduce(id, events);
+                var monsters = MonstersSlayed.Reduce(id, events);
+                return Ok(new { Quest = quest, Monsters = monsters });
+            }
+        }
+
+        [HttpGet("questInfoFunctional/{id}")]
+        public async Task<IActionResult> GetFunctional(Guid id)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var events = (await session.Events.FetchStreamAsync(id)).Select(@event => @event.Data).ToList();
+                var quest = QuestPartyF.Reduce(events);
+                var monsters = MonstersSlayedF.Reduce(events);
+                return Ok(new { Quest = quest, Monsters = monsters });
+            }
+        }
     }
 }

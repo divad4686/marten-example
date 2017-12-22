@@ -15,10 +15,11 @@ namespace quest
     {
         public static IServiceCollection AddMarten(this IServiceCollection services, IConfiguration configuration)
         {
+            var host = configuration["MARTEN_DB"] ?? "Username=david;Password=david;Host=localhost;Port=5433";
             Retry(() => services.AddSingleton<IDocumentStore>(
                     DocumentStore.For(_ =>
                     {
-                        _.Connection(configuration["MARTEN_DB"]);
+                        _.Connection(host);
                         _.Events.DatabaseSchemaName = "marten_store";
                         _.AutoCreateSchemaObjects = AutoCreate.All;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Baseline;
+using Marten.Events;
 
 namespace quest
 {
@@ -38,6 +39,7 @@ namespace quest
             Name = started.Name;
         }
 
+
         public string Name { get; set; }
 
         public Guid Id { get; set; }
@@ -45,6 +47,20 @@ namespace quest
         public override string ToString()
         {
             return $"Quest party '{Name}' is {Members.Join(", ")}";
+        }
+
+        public static QuestParty Reduce(Guid id, List<object> events)
+        {
+            var quest = new QuestParty { Id = id };
+            events.ForEach(@event =>
+            {
+                try
+                {
+                    quest.Apply((dynamic)@event);
+                }
+                catch { }
+            });
+            return quest;
         }
     }
 }
