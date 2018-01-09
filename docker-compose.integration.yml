@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  quests.integration.tests:
+    image: quest.integration.tests
+    build:
+      context: .
+      dockerfile: ${INTEGRATION}/Dockerfile
+      args:
+        api: ${API}
+        integration: ${INTEGRATION}
+    environment:
+      MARTEN_DB: ${MARTEN_DB}

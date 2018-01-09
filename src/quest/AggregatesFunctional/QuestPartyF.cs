@@ -21,7 +21,7 @@ namespace quest
 
         public override string ToString() => $"Quest party '{Name}' is {Members.Join(", ")}";
 
-        private static QuestPartyF Reducer(QuestPartyF state, object @event)
+        private static QuestPartyF Aggregator(QuestPartyF state, object @event)
         {
             switch (@event)
             {
@@ -38,6 +38,6 @@ namespace quest
             return state;
         }
 
-        public static QuestPartyF Reduce(List<object> events) => events.Aggregate(new QuestPartyF(), Reducer);
+        public static QuestPartyF Aggregate(List<object> events) => events.Aggregate(new QuestPartyF(), Aggregator);
     }
 }

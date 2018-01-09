@@ -9,7 +9,7 @@ namespace quest
         public int PigsKilled { get; private set; }
         public List<string> BossNames { get; private set; } = new List<string>();
 
-        private static MonstersSlayedF Reducer(MonstersSlayedF state, object @event)
+        private static MonstersSlayedF Aggregator(MonstersSlayedF state, object @event)
         {
             switch (@event)
             {
@@ -23,6 +23,6 @@ namespace quest
             return state;
         }
 
-        public static MonstersSlayedF Reduce(List<object> events) => events.Aggregate(new MonstersSlayedF(), Reducer);
+        public static MonstersSlayedF Aggregate(List<object> events) => events.Aggregate(new MonstersSlayedF(), Aggregator);
     }
 }

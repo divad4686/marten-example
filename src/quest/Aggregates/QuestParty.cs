@@ -49,7 +49,7 @@ namespace quest
             return $"Quest party '{Name}' is {Members.Join(", ")}";
         }
 
-        public static QuestParty Reduce(Guid id, List<object> events)
+        public static QuestParty Aggregate(Guid id, List<object> events)
         {
             var quest = new QuestParty { Id = id };
             events.ForEach(@event =>

@@ -73,8 +73,6 @@ namespace quest
     {
         public Guid Id { get; set; }
 
-        public Guid QuestId { get; set; }
-
         public int Day { get; set; }
 
         public string Location { get; set; }

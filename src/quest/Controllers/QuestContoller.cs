@@ -77,9 +77,11 @@ namespace quest.Controllers
             using (var session = _store.OpenSession())
             {
                 var events = (await session.Events.FetchStreamAsync(id)).Select(@event => @event.Data).ToList();
-                var quest = QuestParty.Reduce(id, events);
-                var monsters = MonstersSlayed.Reduce(id, events);
-                return Ok(new { Quest = quest, Monsters = monsters });
+                return Ok(new
+                {
+                    Quest = QuestParty.Aggregate(id, events),
+                    Monsters = MonstersSlayed.Reduce(id, events)
+                });
             }
         }
 
@@ -89,9 +91,11 @@ namespace quest.Controllers
             using (var session = _store.OpenSession())
             {
                 var events = (await session.Events.FetchStreamAsync(id)).Select(@event => @event.Data).ToList();
-                var quest = QuestPartyF.Reduce(events);
-                var monsters = MonstersSlayedF.Reduce(events);
-                return Ok(new { Quest = quest, Monsters = monsters });
+                return Ok(new
+                {
+                    Quest = QuestPartyF.Aggregate(events),
+                    Monsters = MonstersSlayedF.Aggregate(events)
+                });
             }
         }
     }
